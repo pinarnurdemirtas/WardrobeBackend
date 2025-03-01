@@ -11,5 +11,6 @@ namespace WardrobeBackend.Data
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Categories> Category { get; set; }
     }
 }

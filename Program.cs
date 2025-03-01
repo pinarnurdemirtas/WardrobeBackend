@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using WardrobeBackend.Data;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using quizify.Data;
 using WardrobeBackend;
 using WardrobeBackend.Repositories;
 using WardrobeBackend.Services;
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<WardrobeDbContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<Security>();

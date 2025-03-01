@@ -8,7 +8,7 @@ namespace WardrobeBackend.Services
         private const string EmailSender = "pncpnc979@gmail.com";
         private const string EmailPassword = "vcrw lerx bgeb upgp";
 
-        public async Task SendConfirmationEmail(string userEmail, string verificationUrl, string userDocument, string rejectUrl)
+        public async Task SendConfirmationEmail(string userEmail, string verificationUrl, string userDocument)
         {
             var mimeMessage = new MimeMessage();
             mimeMessage.From.Add(new MailboxAddress("DIGITAL WARDROBE", EmailSender));
@@ -16,7 +16,7 @@ namespace WardrobeBackend.Services
             mimeMessage.Subject = "Hesap Doğrulaması Gerekiyor";
             mimeMessage.Body = new TextPart("plain")
             {
-                Text = $"Doğrulama: {verificationUrl}\nReddetme: {rejectUrl}\n{userDocument}"
+                Text = $"DIGITAL WARDROBE Hesap Doğrulama: {verificationUrl}\n"
             };
 
             using var client = new SmtpClient();

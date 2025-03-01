@@ -29,7 +29,21 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Register(Users newUser)
     {
         bool success = await _userService.RegisterUser(newUser);
-        return success ? Ok("Kayıt başarılı.") : BadRequest("Kullanıcı adı kullanılıyor.");
+        return success ? Ok("Please check your email and verify your account.") : BadRequest("Username is already taken.");
+    }
+    
+    [HttpGet("register/verify/{username}")]
+    public async Task<IActionResult> VerifyUser(string username)
+    {
+        var result = await _userService.VerifyUser(username);
+        if (result)
+        {
+            return Ok("Your account has been successfully verified.");
+        }
+        else
+        {
+            return BadRequest("User verification failed.");
+        }
     }
 
     [HttpGet("all-users")]
@@ -37,7 +51,7 @@ public class UserController : ControllerBase
     {
         var users = await _userService.GetAllUsers();
         if (users == null || !users.Any())
-            return NotFound("Kullanıcı bulunamadı.");
+            return NotFound("No users found.");
 
         var userNames = users.Select(u => u.Fullname).ToList();
         return Ok(userNames);

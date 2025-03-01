@@ -49,10 +49,9 @@ namespace WardrobeBackend.Services
             bool result = await _userRepository.AddUserAsync(newUser);
             if (!result) return false;
 
-            var verificationUrl = $"http://192.168.63.150/api/users/verify/{newUser.Username}";
-            var rejectUrl = $"http://192.168.63.150/api/users/reject/{newUser.Username}";
+            var verificationUrl = $"http://192.168.192.62:5000/User/register/verify/{newUser.Username}";
             
-            await _emailService.SendConfirmationEmail(newUser.Email, verificationUrl, newUser.Fullname, rejectUrl);
+            await _emailService.SendConfirmationEmail(newUser.Email, verificationUrl, newUser.Fullname);
 
             return true;
         }
